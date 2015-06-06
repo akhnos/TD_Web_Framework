@@ -1,0 +1,73 @@
+
+<meta charset="utf-8">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="css/font-awesome.css" type="text/css"/>
+<link rel="stylesheet" href="css/glyphicons.css" type="text/css"/>
+
+<style>
+.bg-color
+{
+	background-color: #A5B3D0;
+}
+
+.text-color
+{
+	color:#161B26;
+}
+
+
+.bold-text-color
+{
+	color:#010101;
+}
+
+.link-color
+{
+	color:#66A7f6;
+}
+
+.clicked-link-color
+{
+	color:#529cf5;
+}
+
+    .right-menu-anim:after { 
+
+      width:239px;
+      height: 100%;
+      background-color: white;
+      content:"";
+      z-index: 100;
+    position:absolute;
+    top:0px;
+    left:0;
+    opacity: 0;
+
+         -webkit-animation-name: toleft; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    -webkit-animation-fill-mode: forwards;
+    animation-name: toleft;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+              @keyframes toleft {
+    from { opacity: 1; left:259px;z-index:100}
+    to { opacity: 1; left:0px;z-index:-1}
+}
+
+@-webkit-keyframes toleft {
+    from { opacity: 1; left:259px;z-index:100}
+    to { opacity: 1; left:0px;z-index:-1}
+}
+
+</style>
+
+
+<link rel="stylesheet/less" href="css/framework-theme-export.less" type="text/css"/>
+<script type="text/javascript" src="js/less.js"></script>
+
+<script src="js/system.js"></script>
+<script src="js/framework.js"></script>

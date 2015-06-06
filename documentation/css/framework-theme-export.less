@@ -1,0 +1,317 @@
+@import "framework";
+@import "framework-animations";
+.gradient(@direction,@startColor,@finishColor,@startRatio,@finishRatio) {
+  background: -o-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: -moz-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: -webkit-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: -ms-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: linear-gradient(to bottom, @startColor @startRatio, @finishColor @finishRatio);
+}
+
+.color-bundle(@type,@concept,@mainCol,@textColor,@mainCol2,@textColor2,@cautionCol,@cautionTextColor,@buttonBackground,@buttonTextColor){
+
+  .concept(@concept) when (@concept = "light") {
+    @mainColCaution: darken(@mainCol,10%);
+    @mainColBorder: darken(@mainCol,10%);
+    @mainColHover: lighten(@mainCol,20%);
+    @textColorHover: lighten(@textColor,10%);
+    @buttonBackgroundHover: lighten(@buttonBackground,15%);
+    @buttonBorderColor: lighten(@buttonBackground,10%);
+    @buttonBorderColorHover: lighten(@buttonBackground,25%);
+    @buttonTextColHover: darken(@buttonTextColor,20%);
+    @cautionColHover: lighten(@cautionCol,25%);
+    @cautionBorderCol: lighten(@cautionCol,10%);
+    @cautionBorderColHover: lighten(@cautionCol,40%);
+    @selectedBackground: darken(@buttonBackground,20%);
+  }
+  .concept(@concept) when (@concept = "dark") {
+    @mainColCaution: lighten(@mainCol,10%);
+    @mainColBorder: lighten(@mainCol,10%);
+    @mainColHover: darken(@mainCol,20%);
+    @textColorHover: darken(@textColor,10%);
+    @buttonBackgroundHover: darken(@buttonBackground,15%);
+    @buttonBorderColor: darken(@buttonBackground,10%);
+    @buttonBorderColorHover: darken(@buttonBackground,25%);
+    @buttonTextColHover: lighten(@buttonTextColor,20%);
+    @cautionColHover: darken(@cautionCol,25%);
+    @cautionBorderCol: darken(@cautionCol,10%);
+    @cautionBorderColHover: darken(@cautionCol,40%);
+    @selectedBackground: darken(@buttonBackground,20%);
+  }
+
+  .concept(@concept);
+
+  .content-container@{type}{
+    background: @mainCol;
+    color: @textColor;
+
+    .content {color: @textColor;
+      &:hover {color: @textColorHover;}
+    }
+
+    .content-div {
+      color: @textColor;
+      border-radius: 3px;
+      background: @mainCol;
+      border: 1px solid @mainColBorder;
+    }
+
+    .content-div2{
+      border: 4px solid @mainColBorder;
+      color: @textColor;
+      border-radius: 2px;
+    }
+
+    .content-div-caution {
+      background: @mainColCaution;
+    }
+
+    .content-divider-menu {
+      border: 1px solid @mainColBorder;
+      color: @textColor;
+      border-radius: 3px;
+    }
+
+    div{
+      &:hover{
+        >.header-content{
+          background: @mainCol2;
+          >* {
+            color: @textColor2;
+          }
+        }
+      }
+    }
+
+    .tab
+    {
+      .tab-link.tab-link-selected{
+        border-bottom: 2px solid @mainCol2;
+        &:hover{
+          border-bottom: 2px solid @mainCol2;
+        }
+      }
+
+      .tab-link{
+        .animated-fast;
+        border-bottom: 2px solid transparent;
+        color: @textColor;
+        padding-left: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+        .glyphicon:before {margin-right: 5px;}
+        &:hover {
+
+          background: @mainCol;
+          color: @textColorHover;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .button{
+      .animated-fast;
+      border: 1px solid @buttonBorderColor;
+      background: @buttonBackground;;
+      color: @buttonTextColor;
+      border-radius: 2px;
+      .glyphicon:before {margin-right: 5px;}
+      &:hover {}
+      &:active{}
+    }
+    .button.button-caution{
+      background: @cautionCol;
+      border: @cautionBorderCol;
+      color: @cautionTextColor;
+      border-radius: 3px;
+      &:hover{
+        background: @cautionColHover;
+        border: @cautionTextColor;
+        color: @cautionTextColor;
+      }
+    }
+    .button.button-selected{
+      opacity: 1;
+      background: @selectedBackground;
+      color: @cautionTextColor;
+      .glyphicon {
+        color: @cautionTextColor;
+      }
+    }
+    .button.button-active{}
+    .button.button-disable{}
+
+    .list-elem-colored,
+    .list-elem-header,
+    .list-elem-selected,
+    .list-elem-resizable,
+    .list-elem{}
+    .list{
+      .list-elem-header{}
+      .list-elem{
+        .animated-fast;
+        img {opacity: 1;}
+        &:hover{img{opacity: 0.7}}
+      }
+
+      .list-elem-colored{&:hover{background: @mainCol2;color: @textColor2;.div-link, .div-link2{color: @cautionTextColor}}}
+      .list-elem-resizable{&:hover{font-size: 12px;}}
+      .list-elem-selected{background: @cautionCol;}
+    }
+
+    .header-content{
+      background: @mainCol2;
+      .animated-fast;
+      float: left;
+      position: relative;
+      height: 40px;
+      width: 100%;
+      display: table;
+      text-align: center;
+      >div, >span {
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+        color: @textColor2;
+      }
+    }
+
+    .div-link {
+      color: @textColor;
+      &:hover {
+        color: @cautionCol;
+      }
+    }
+
+    .div-link2 {
+      color: @cautionCol;
+      &:hover {
+        color: @cautionColHover;
+      }
+    }
+
+    .separator-line-vertical,
+    .separator-line-horizontal {
+      background: @mainColCaution;
+    }
+
+    .selected-image {
+      border: 1px solid @cautionCol,30;
+      opacity: 1;
+    }
+
+    .dropdown{
+      .dropdown-trigger{
+        border: 1px solid @mainColBorder;
+        width: 150px;
+      }
+      .dropdown-menu{
+        border: 1px solid @mainColBorder;
+        .dropdown-menu-section:not(:last-child){
+          padding-right: 10px;
+        }
+      }
+    }
+
+    .div-group{
+      >*:not(:first-child):not(:last-child){
+      }
+      >*:first-child{
+      }
+      >*:last-child{
+      }
+    }
+  }
+}
+
+.color-bundle(1,"light", rgb(184, 184, 184), rgb(66, 66, 66), rgb(134, 134, 134), rgb(52, 52, 52),
+  rgb(17, 17, 17), rgb(174, 174, 174), rgb(23, 23, 23), rgb(146, 146, 146));
+/** Manipulations:Start **/
+* {
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-touch-action:none;
+}
+
+.content-container1{
+  text-shadow: none;
+  background: none;
+  .content-example{
+    > * {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+/** Manipulations:End **/
+input[type="text"], input[type="password"],input[type="time"], input[type="date"], select, textarea{
+  border-radius: 4px;
+  border: 1px solid rgb(187, 187, 187);
+  outline: 0px;
+  height: 24px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+body{
+  font-family: roboto;
+  font-size: 15px;
+}
+
+.input-textBox {
+  border-radius: 3px;
+  height: 30px;
+  outline: 0px;
+}
+
+.image-div {}
+
+.container-menu {
+  background: rgb(218, 218, 218);
+}
+
+.content-container{
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.header-navigator {
+
+  background: #003551;
+  border-bottom: 1px solid #002a41;
+  color: rgb(195, 195, 195);
+  z-index: 100;
+  box-shadow: 0px 2px 2px -2px #464646;
+  font-size: 13px;
+  .tab{
+    .tab-link{
+      background: #003551;
+      border-left: 1px solid #cecece;
+      color: rgb(195, 195, 195);
+      &:hover{
+        background: #004364;
+      }
+    }
+    .tab-link.tab-link-selected{
+      background: #00527a;
+    }
+  }
+
+  .separator-line-vertical,
+  .separator-line-horizontal{
+    background: ligthen(#232323,20%);
+  }
+}
+
+.inner_popup{
+  border-color:#a7a7a7;
+}
+
+.text-warning {
+  color: #ff0000;
+  font-weight: bold;
+}
+

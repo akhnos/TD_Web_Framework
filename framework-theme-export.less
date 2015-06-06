@@ -1,0 +1,412 @@
+@import "framework";
+@import "framework-animations";
+.gradient(@direction,@startColor,@finishColor,@startRatio,@finishRatio) {
+  background: -o-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: -moz-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: -webkit-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: -ms-linear-gradient(bottom, @startColor @startRatio, @finishColor @finishRatio);
+  background: linear-gradient(to bottom, @startColor @startRatio, @finishColor @finishRatio);
+}
+
+
+//@schemeColor1: rgb(63,63,63); // Main menu color && Should be dark color
+@schemeColor1: rgb(255,255,255); // Main menu color && Should be dark color
+//@schemeColor1: rgb(58,90,70); // Main menu color && Should be dark color
+
+//@schemeColor1: rgb(255, 166, 51); // Opposite Of Text Color 2 && Should be dark color
+@schemeColor2: rgb(218, 218, 218); // Background && Should be light color
+@schemeColor3: rgb(255,255,255); // Opposite Of Text Color 1 && Should be light color
+@schemeColor4: rgb(57, 66, 100); // Navigator && Should be light color
+@schemeColor5: rgb(47,47,47); // Borders-Shadows && Should be dark color
+@schemeColor6: rgb(17, 169, 171); // Should be different scheme color
+@schemeColor7: rgb(244, 100, 123);
+@schemeColor8: rgb(230,76,101);
+@schemeColor9: rgb(22,122,198);
+
+@textColor1: rgb(54, 54, 54); // Opposite Of SchemeColor Color 3 && Should be dark color
+@textColor2: rgb(228, 228, 228); // Opposite Of SchemeColor Color 1 && Should be light color
+@textColor3: rgb(242, 242, 242); // Opposite Of SchemeColor Color 6 && Should be light color
+
+@bodyColor: @schemeColor2; // Background
+@navColor: @schemeColor4; // Navigator Top Color
+@navColor2: darken(@schemeColor4,5%); // Navigator Bottom Color
+@navColor3: darken(@navColor2,20%); // Navigator Border Color (Shadow Color)
+@navColor4: darken(@schemeColor5,5%); // Button Border Color
+@navColor6: darken(@schemeColor5,10%); // Button-Active & Button-Caution Border Color (Shadow Color)
+@textColorHover2: lighten(@textColor2,10%); // Text Color 2 Hover
+@inputBorderColor: darken(@schemeColor2,4%); // Input Border Color
+
+.color-bundle(@type,@concept,@mainCol,@textColor,@mainCol2,@textColor2,@cautionCol,@cautionTextColor,@buttonBackground,@buttonTextColor){
+
+  .concept(@concept) when (@concept = "light") {
+    @mainColCaution: darken(@mainCol,10%);
+    @mainColBorder: darken(@mainCol,10%);
+    @mainColHover: lighten(@mainCol,20%);
+    @textColorHover: lighten(@textColor,10%);
+    @buttonBackgroundHover: lighten(@buttonBackground,15%);
+    @buttonBorderColor: lighten(@buttonBackground,10%);
+    @buttonBorderColorHover: lighten(@buttonBackground,25%);
+    @buttonTextColHover: darken(@buttonTextColor,20%);
+    @cautionColHover: lighten(@cautionCol,25%);
+    @cautionBorderCol: lighten(@cautionCol,10%);
+    @cautionBorderColHover: lighten(@cautionCol,40%);
+    @selectedBackground: darken(@buttonBackground,20%);
+  }
+  .concept(@concept) when (@concept = "dark") {
+    @mainColCaution: lighten(@mainCol,10%);
+    @mainColBorder: lighten(@mainCol,10%);
+    @mainColHover: darken(@mainCol,20%);
+    @textColorHover: darken(@textColor,10%);
+    @buttonBackgroundHover: darken(@buttonBackground,15%);
+    @buttonBorderColor: darken(@buttonBackground,10%);
+    @buttonBorderColorHover: darken(@buttonBackground,25%);
+    @buttonTextColHover: lighten(@buttonTextColor,20%);
+    @cautionColHover: darken(@cautionCol,25%);
+    @cautionBorderCol: darken(@cautionCol,10%);
+    @cautionBorderColHover: darken(@cautionCol,40%);
+    @selectedBackground: darken(@buttonBackground,20%);
+  }
+
+  .concept(@concept);
+
+  .content-container@{type}{
+    background: @mainCol;
+    color: @textColor;
+    line-height:17px;
+
+    .content {color: @textColor;
+      &:hover {color: @textColorHover;}
+    }
+
+    .content-div {
+      position: relative;
+      color: @textColor;
+      background: @mainCol;
+    }
+
+    .content-div2{
+      border: 1px solid @mainColBorder;
+      color: @textColor;
+    }
+
+    .content-div-caution {
+      background: @mainColCaution;
+    }
+
+    .content-divider-menu {
+      border: 1px solid @mainColBorder;
+      color: @textColor;
+      border-radius: 3px;
+    }
+
+    .content-header {
+      color: @textColor;
+    }
+
+    div{
+      &:hover{
+        >.header-content{
+          background: @mainCol2;
+          >* {
+            color: @textColor2;
+          }
+        }
+      }
+    }
+
+    .tab
+    {
+      .tab-link.tab-link-selected{
+        border-bottom: 2px solid @mainCol2;
+        &:hover{
+          border-bottom: 2px solid @mainCol2;
+        }
+      }
+
+      .tab-link{
+        .animated-fast;
+        border-bottom: 2px solid transparent;
+        color: @textColor;
+        padding-left: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+        .glyphicon:before {margin-right: 5px;}
+        &:hover {
+
+          background: @mainCol;
+          color: @textColorHover;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .button{
+      .animated-fast;
+      border: 1px solid @buttonBorderColor;
+      background: @buttonBackground;;
+      color: @buttonTextColor;
+      border-radius: 2px;
+      .glyphicon:before {margin-right: 5px;}
+      &:hover {
+        color: @buttonTextColHover;
+        background: @buttonBackgroundHover;
+        border: 1px solid @buttonTextColHover;
+      }
+      &:active{}
+    }
+    .button.button-caution{
+      background: @cautionCol;
+      border: @cautionBorderCol;
+      color: @cautionTextColor;
+      border-radius: 3px;
+      &:hover{
+        background: @cautionColHover;
+        border: @cautionTextColor;
+        color: @cautionTextColor;
+      }
+    }
+    .button.button-selected{
+      opacity: 1;
+      background: @selectedBackground;
+      color: @cautionTextColor;
+      .glyphicon {
+        color: @cautionTextColor;
+      }
+    }
+    .button.button-active{}
+    .button.button-disable{}
+
+    .list-elem-colored,
+    .list-elem-header,
+    .list-elem-selected,
+    .list-elem-resizable,
+    .list-elem{}
+    .list{
+      .list-elem-header{}
+      .list-elem{
+        .animated-fast;
+        img {opacity: 1;}
+        &:hover{img{opacity: 0.7}}
+      }
+
+      .list-elem-colored{&:hover{background: @mainCol2;color: @textColor2;.div-link, .div-link2{color: @cautionTextColor}}}
+      .list-elem-resizable{&:hover{font-size: 12px;}}
+      .list-elem-selected{background: @cautionCol;}
+    }
+
+    .header-content{
+      background: @mainCol2;
+      color: @textColor2;
+      .animated-fast;
+      float: left;
+      position: relative;
+      height: 40px;
+      width: 100%;
+      display: table;
+      text-align: center;
+      >div, >span {
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+        color: @textColor2;
+      }
+    }
+
+    .div-link {
+      color: @textColor;
+      &:hover {
+        color: @cautionCol;
+      }
+    }
+
+    .div-link2 {
+      color: @cautionCol;
+      &:hover {
+        color: @cautionColHover;
+      }
+    }
+
+    .separator-line-vertical,
+    .separator-line-horizontal {
+      background: darken(@mainColCaution,5%);
+    }
+
+    .selected-image {
+      border: 1px solid @cautionCol;
+      opacity: 1;
+    }
+
+    .data-table{
+      border-collapse: collapse;
+      >*,tr{
+        border:1px solid darken(@mainCol,15%);
+      }
+      >*:nth-child(2n+1),tr:nth-child(2n+1){
+        background: darken(@mainCol,5%);
+      }
+      >*:nth-child(2n),tr:nth-child(2n){
+        background: darken(@mainCol,10%);
+      }
+    }
+  }
+}
+
+//@type,@concept,@mainCol,@textColor,@mainCol2,@textColor2,@cautionCol,@cautionTextColor,@buttonBackground,@buttonTextColor
+.color-bundle(1,"light", @schemeColor1, @textColor1,
+  @schemeColor6, @schemeColor3,
+  @schemeColor9, @schemeColor3,
+  @schemeColor8, @schemeColor3);
+/** Manipulations:Start **/
+
+.content-container1{
+  .content-divider-menu{
+    .badge-right{
+      position: absolute;
+      top:0px;right:0px;
+      opacity: 0.3;
+    }
+    &:hover{
+      .badge-right{
+        opacity: 0.5;
+        &:hover{
+          opacity: 1;
+        }
+      }
+      .animated-fast;
+      border-color: @schemeColor7;
+    }
+  }
+  .button{
+    .fa{
+      .padding-small-vertical;
+      .padding-mini-horizontal;
+    }
+    &:hover{
+      background: @schemeColor4;
+      color: @textColor2;
+    }
+  }
+  .spineChart{
+    height: 270px;
+  }
+}
+
+/** Manipulations:End **/
+  a, a:focus{
+    outline: 0;
+  }
+  input[type="text"], input[type="password"],input[type="time"], input[type="date"], select, textarea{
+    border-radius: 4px;
+    border: 1px solid @inputBorderColor;
+    outline: 0px;
+    height: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  select{
+    height: 25px !important;
+  }
+
+  body{
+    font-family: 'Open Sans', sans-serif;
+    background: @bodyColor;
+  }
+
+  .input-textBox {
+    border-radius: 3px;
+    height: 26px;
+    outline: 0px;
+  }
+
+  .image-div {}
+
+  .container-menu {
+    background: @bodyColor;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .content-container{
+    font-size: 11px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+  }
+
+  .header-navigator {
+    .gradient("bottom", @navColor, @navColor2,40%,99%);
+    border-bottom: 1px solid @navColor3;
+    color: @textColor2;
+    z-index: 100;
+    box-shadow: 0px 2px 2px -2px @navColor3;
+    font-size: 13px;
+    .list{
+      .div-link{
+        color: @textColor3;
+        .animated-fast;
+        .fa,div{
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+        &:hover {
+          text-decoration: none;
+          background: @schemeColor6;
+          color: @textColorHover2;
+        }
+      }
+    }
+    .tab {
+      font-size: 13px;
+      .tab-link.tab-link-selected{
+        border-bottom: 2px solid @schemeColor6;
+        background: @schemeColor6;
+        color: @textColor3;
+      }
+
+      .tab-link {
+        .padding-medium-horizontal;
+        .animated-fast;
+        border-left: 1px solid lighten(@navColor3,10%);
+        border-bottom: 2px solid rgba(0,0,0,0);
+        color: @textColor2;
+        .navigator-link-secondary{
+        }
+        .fa,div{
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+        &:hover {
+          text-decoration: none;
+          background: none;
+          border-bottom: 2px solid @schemeColor6;
+          background: @schemeColor6;
+          color: @textColorHover2;
+        }
+      }
+    }
+    .separator-line-vertical,
+    .separator-line-horizontal{
+      background: darken(@navColor,10%);
+    }
+  }
+  .text-warning{
+    color: rgb(212, 14, 19);
+  }
+
+  .error-text {
+    color: #f3f3f3;
+    background: rgba(212, 14, 19, 0.90);
+    border: 1px solid #d2d2d2;
+  }
+
+  .success-text {
+    color: #fbfbfb;
+    background: rgba(33, 157, 27, 0.95);
+    border: 1px solid #d2d2d2;
+  }
+
+  .warning-text {
+    color: #888888;
+    background: #000000;
+  }
+
+
