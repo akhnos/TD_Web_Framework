@@ -16,17 +16,8 @@ function ComponentBuilder()
     var defaults = my.defaults;
 
     var my = this;
-    this.assets = {};
     this.components = {};
     this.helper = {
-        getAsset: function(assetKey)
-        {
-            if(typeof my.assets[assetKey] == "undefined" && assetKey != "")
-                my.helper.debugWarnings("Missing texture \n"
-                    + "Texture Key: " + assetKey);
-            result = (my.assets[assetKey]) ? my.assets[assetKey] : {texture: null, leftSize: 0, rightSize: 0, topSize: 0, bottomSize: 0, repeat: "repeat"};
-            return result;
-        },
 
         debugWarnings: function(warning, param1, param2)
         {
@@ -62,26 +53,6 @@ function ComponentBuilder()
                 clonedTemplate.appendTo("#" + parentId);
             }
             $("#" + templateId).remove();
-        }
-    };
-    this.addCssClasses = function()
-    {
-        for(var x in my.assets)
-        {
-            backgroundX = my.assets[x]["xDimensions"];
-            backgroundY = my.assets[x]["yDimensions"];
-            my.assets[x].leftSize = leftSize = backgroundX[0];
-            my.assets[x].rightSize = rightSize = (backgroundX[1] < 0) ? Math.abs(backgroundX[1]) : my.assets[x]["width"] - backgroundX[1];
-            my.assets[x].topSize = topSize = backgroundY[0];
-            my.assets[x].bottomSize = bottomSize = (backgroundY[1] < 0) ? Math.abs(backgroundY[1]) : my.assets[x]["height"] - backgroundY[1];
-            menuTextureStrech = my.assets[x]["repeat"];
-            $("<style type='text/css'> ." + x + " {"
-                + "-moz-border-image: url('" + my.defaults.assetFolder + my.defaults.imageFolder + my.assets[x]["image"] + "') " + topSize + " " + rightSize + " " + bottomSize + " " + leftSize + " fill" + menuTextureStrech + ";"
-                + "-webkit-border-image: url('" + my.defaults.assetFolder + my.defaults.imageFolder + my.assets[x]["image"] + "') " + topSize + " " + rightSize + " " + bottomSize + " " + leftSize + " fill " + menuTextureStrech + ";"
-                + "-o-border-image: url('" + my.defaults.assetFolder + my.defaults.imageFolder + my.assets[x]["image"] + "') " + topSize + " " + rightSize + " " + bottomSize + " " + leftSize + " fill " + menuTextureStrech + ";"
-                + "border-image: url('" + my.defaults.assetFolder + my.defaults.imageFolder + my.assets[x]["image"] + "') " + topSize + " " + rightSize + " " + bottomSize + " " + leftSize + " fill " + menuTextureStrech + ";"
-                + "border-width: " + topSize + "px " + rightSize + "px " + bottomSize + "px " + leftSize + "px;\""
-                + "} </style>").appendTo("head");
         }
     };
 
@@ -150,45 +121,9 @@ function ComponentBuilder()
             my.helper.debugWarnings("Not used texts", my.components["tmpTexts"]);
     };
 
-    this.preLoad = function()
-    {
-        var assetLoad = function(x){
-            assets = new Array();
-            assets[x] = my.assets[x];
-            my.assets[x] = {};
-            my.assets[x]["image"] = assets[x].texture;
-            my.assets[x]["repeat"] = (typeof assets[x].repeat == "undefined") ? my.defaults.imageRepeat : assets[x].repeat;
-            my.assets[x]["element"] = $('<img id="dynamic">');
-            my.assets[x]["element"].attr('src', my.defaults.assetFolder + my.defaults.imageFolder + my.assets[x]["image"]).load(function(){
-                my.assets[x]["width"] = this.width;
-                my.assets[x]["height"] = this.height;
-            });
-
-            if(counter == assetsLength)
-            {
-                my.assets[x]["element"].load(function() {
-                    my.collector();
-                });
-            }
-            my.assets[x]["xDimensions"] = assets[x].x;
-            my.assets[x]["yDimensions"] = assets[x].y;
-        };
-
-        var counter = 1;
-        var assetsLength = Object.keys(my.assets).length;
-        for(var x in my.assets)
-        {
-            assetLoad(x);
-            counter++;
-        }
-        if(assetsLength == 0)
-            my.collector();
-    };
-
     this.collector = function()
     {
 
-        my.addCssClasses();
         my.getOriginalText();
         my.getTexts();
         my.getPlaceHolders();
@@ -198,7 +133,7 @@ function ComponentBuilder()
     {
         var ajax = new Ajax();
         my.defaults.currentPage = document.getElementById(initializedElement);
-        my.preLoad();
+        my.collector();
         $("#" + initializedElement + " a").each(function(){
             if($(this).attr("href").indexOf("http://") < 0)
                 this.href = my.defaults.rootFolder + $(this).attr("href");
@@ -222,6 +157,20 @@ function Framework_Components()
         for(var x in my.activatedComponents){
             my.activatedComponents[x](initializedElement);
         }
+    };
+
+    this.createUniqueId = function(){
+        var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+        var string_length = 20;
+        var uniqueId = '';
+        for (var i=0; i<string_length; i++) {
+            var rnum = Math.floor(Math.random() * chars.length);
+            uniqueId += chars.substring(rnum,rnum+1);
+        }
+        if(!$("#" + uniqueId))
+            return uniqueId;
+        else
+            return my.createUniqueId();
     };
 }
 var FRAMEWORK_COMPONENTS_OBJ = new Framework_Components();

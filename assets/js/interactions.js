@@ -18,7 +18,7 @@ function Interactions()
         if(typeof object.easing == "undefined")
             object.easing = this.easing;
         this.animator.animations[animation](object);
-    }
+    };
 
 
     this.form = new Form();
