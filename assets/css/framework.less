@@ -12,20 +12,12 @@ a {
   background: transparent;
   text-decoration: none;
   color: #428bca;
-
-  &:hover{
-    text-decoration: none;
-  }
-
-  &:focus{
-    outline: thin dotted;
-    text-decoration: none;
-  }
+  outline: none;
+  outline: 0;
+  &:hover{text-decoration: none;}
+  &:focus{text-decoration: none;}
   &:active,
-  &:hover{
-    outline: 0;
-    text-decoration: none;
-  }
+  &:hover{text-decoration: none;}
 }
 
 b,
@@ -37,8 +29,21 @@ div
 img, input {
   outline: 0;
 }
+
 /** Defaults: End **/
-/** Component: Start **/
+
+/** Interface Classes: Start (Using in system.js || framework.js) **/
+.ajax-spinner-enable{}
+.ajax-spinner-disable{}
+
+.click-hide,
+.click-remove{}
+
+.number-changeable{}
+
+.explanation-external{}
+.explanation-text{display: none;}
+.explanation-popup{position:absolute;z-index: 9999;}
 
 .dropdown,
 .dropdown-trigger,
@@ -56,13 +61,15 @@ img, input {
   }
   .dropdown-menu{
     display: none;
-    border: 1px solid #000000;
-    border-radius: 3px;
   }
   .dropdown-active{
     display: block;
   }
 }
+
+/** Interface Classes: End (Using in system.js || framework.js) **/
+/** Component: Start **/
+
 
 .div-group{
   >*:not(:first-child):not(:last-child){
@@ -147,6 +154,9 @@ img, input {
 .separator-line-vertical {
   width: 1px !important;
 }
+
+
+
 /** Content: End **/
 
 /** Position - Size: Start **/
@@ -448,12 +458,11 @@ img, input {
 
 
 .text-mini {font-size: 0.5em;}
-.text-small {font-size: 0.75em;}
+.text-small {font-size: 0.75em; }
 .text-medium {font-size: 1em;}
 .text-semiLarge {font-size: 1.25em; line-height: 1.25em;}
 .text-large {font-size: 2em; line-height: 2em;}
 .text-huge {font-size: 5em; line-height: 5em;}
-
 
 .error-text,
 .success-text,
@@ -539,7 +548,7 @@ img, input {
 }
 
 /** Displays: End **/
-.noselect {
+.no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
