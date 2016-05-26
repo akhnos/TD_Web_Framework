@@ -1,0 +1,23 @@
+.separator-line-horizontal-text{
+  
+    width:70%;
+    margin:20px auto;
+    overflow:hidden;
+    text-align:center;   
+    line-height:1.2em;
+
+    &:before,
+    &:after
+    {
+    content:"";
+    vertical-align:text-top;
+    display:inline-block;
+    width:50%;
+    height:0.65em;
+    border-bottom:5px solid orange;
+    margin:0 2% 0 -55%;
+    }
+    &:after{
+    margin:0 -55% 0 2%;
+    }
+}

@@ -1,22 +1,31 @@
-<div class="content-container content-container1 dh-0">
-    <div class="text-huge">Animated Element</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Element</title>
+    <meta charset="utf-8"/>
+   
+</head>
+<body>
+<div class="animated-normal">
+<div class="animated-normal content-container content-container1 dh-0">
+    <div class="text-huge separator-line-horizontal-text">Animated Element</div>
     <div class="text-semiLarge">Animated elements are used in conjunction with javascript where you specify the animation logic i.e. when and which property should be changed. For continious animation a function within setInterval method is used in the following examples.</div>
     <div class="gutter-absolute-symmetric-high-vertical">
         <div class="dh-0 content-example">
             <div class="text-large">Example</div>
             <div class="content-divider-menu dh-0 padding-medium vertical">
                 <div class="dh-0 padding-medium">
-                    <div class="text-semiLarge">animated-fast (0.3s)</div>
+                    <div class="text-large">animated-fast (0.3s)</div>
                     <div id="animatedFastExample" class="animated-fast dh-0" style="width: 40px;height: 40px;left: 0px;background: red;">
                     </div>
                 </div>
                 <div class="dh-0 padding-medium">
-                    <div class="text-semiLarge">animated-normal (0.8s)</div>
+                    <div class="text-large">animated-normal (0.8s)</div>
                     <div id="animatedNormalExample" class="animated-normal dh-0" style="width: 40px;height: 40px;left: 0px;background: red;">
                     </div>
                 </div>
                 <div class="dh-0 padding-medium">
-                    <div class="text-semiLarge">animated-slow (2s)</div>
+                    <div class="text-large">animated-slow (2s)</div>
                     <div id="animatedSlowExample" class="animated-slow dh-0" style="width: 40px;height: 40px;left: 0px;background: red;">
                     </div>
                 </div>
@@ -24,6 +33,8 @@
         </div>
     </div>
 </div>
+</div>
+
     <script>
 
         setInterval(function(){
@@ -52,3 +63,5 @@
                 $("#animatedSlowExample").css("left","350px");
         },2000);
     </script>
+</body>
+</html>

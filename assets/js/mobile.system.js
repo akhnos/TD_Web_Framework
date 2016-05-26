@@ -1,7 +1,7 @@
 function System()
 {
     this.config = {
-        rootFolder: "http://localhost/TDWebFramework/tdem"
+        rootFolder: ""
     };
 
     var my = this;
@@ -96,37 +96,7 @@ function Html()
         htmlObject: function(value){return htmlObject = $("#" + value)}
     };
 
-    this.elementControl = new ElementControl();
-    this.elementControl.set.throwErrorFlag(true);
-
     var htmlObject;
-}
-
-ElementControl.prototype = new Html();
-function ElementControl(){
-
-    this.set = {
-        throwErrorFlag: function(value){return throwErrorFlag = value;}
-    };
-
-    var throwErrorFlag = false;
-    var my = this;
-    this.typeIs = function(object,objectType)
-    {
-        if(object.is(objectType))
-            return true;
-        else
-        {
-            if(throwErrorFlag)
-            {
-                my.logger.set.text("Element is not " + objectType);
-                my.logger.add.text("Element is " + object.prop("tagName"));
-                my.logger.add.text("Element Id is: " + object.attr("id"));
-                my.logger.console();
-            }
-            return false;
-        }
-    };
 }
 
 Form.prototype = new Html();
@@ -135,63 +105,66 @@ function Form()
     var my = this;
 
     this.get = this.extend({
-        interaction: function(){return interaction},
-        inputObject: function(){return my.get.htmlObject();}
+        requiredElements: function(){return requiredArray;}
     },this.get);
 
     this.set = this.extend({
         interaction: function(value){return interaction = value;},
-        inputObject: function(value)
-        {
-            object = my.set.htmlObject(value);
-            if(my.elementControl.typeIs(object,"input") || my.elementControl.typeIs(object,"select") || my.elementControl.typeIs(object,"textarea"))
-                return object;
-            else my.logger.die();
-            return false;
+        requiredElements: function(req,check){
+            result = true;
+            if(typeof check == "undefined")
+                check = [""];
+            if(Array.isArray(req)){
+                requiredArray = req;
+                for(var x in req){
+                    req[x] = $("#" + req[x]);
+                    for(var y in check){
+                        if(req[x].val() == check[y]){
+                            result = false;
+                            interaction(req[x]);
+                        }
+                    }
+                }
+            }
+            return result;
         }
     },this.set);
 
-    var interaction = function(){},inputObject;
+    var interaction = function(){},requiredArray = [];
 
-    this.interaction = function(interactionFunc)
-    {
-        if(interactionFunc != null)
-            interactionFunc();
-        else
-            my.get.interaction()();
-    };
-
-    this.required = function(callBack)
-    {
-        value = my.getValueOfInput();
-        if(typeof value == "undefined" || value == "")
-        {
-            if(callBack != null)
-            {
-                callBack();
+    this.getInput = function(inputId){
+        var result;
+        if(Array.isArray(inputId)){
+            for(var x in inputId){
+                result[x] = $("#" + inputId[x]).val();
             }
-            return false;
         }
-        return true;
+        else{
+            result = $("#" + inputId).val();
+        }
+        return result;
     };
 
-    this.getValueOfInput = function()
-    {
-        return my.get.htmlObject().val();
+    this.getForm = function(formId){
+        var result = {};
+        $("#" + formId).find("input,select,textarea").each(function(){
+            var el = $(this);
+            result[el.attr("id")] = el.val();
+        });
+        return result;
     };
 }
-
 Ajax.prototype = new System();
 function Ajax(){
 
     var my = this;
+    this.history = [];
     this.get = this.extend({
         url: function(){return url},
         div: function(){return div},
         inputData: function(){return inputData},
         dataType: function(){return dataType;},
-        successCallback: function(){return successCallback;},
-        templateUrl: function(){return templateUrl;}
+        successCallback: function(){return successCallback;}
     },this.get);
 
     this.set = {
@@ -199,34 +172,35 @@ function Ajax(){
         div: function(value){return div = value},
         inputData: function(value){return inputData = value},
         dataType: function(value){return dataType = value;},
-        successCallback: function(value){return (value == null) ? function(){} : successCallback = value;},
-        templateUrl: function(value){return templateUrl = value;}
+        successCallback: function(value){return (value == null) ? function(){} : successCallback = value;}
     };
 
-    this.ctrlKeyDown = "";
-    var url = null,div = null,dataType = "html",successCallback = function(){},templateUrl = "",inputData = null;
+    var url = null,div = null,dataType = "html",successCallback = function(){},inputData = null;
 
-    this.clearURLDiv = function()
+    this.clear = function()
     {
-        this.set.url(null);
-        this.set.div(null);
-        this.set.successCallback(function(){});
-        this.set.inputData(null);
+        my.set.url(null);
+        my.set.div(null);
+        my.set.successCallback(function(){});
+        my.set.inputData(null);
     };
 
-    this.callEvent = function(url,div,callBack)
+    this.callEvent = function(url,div,input,cb)
     {
-        this.set.url(url);
-        this.set.div(div);
-        this.set.successCallback(callBack);
-        this.call();
-        this.clearURLDiv();
+        my.set.url(url);
+        my.set.div(div);
+        if(typeof input != "undefined")
+            my.set.inputData(input);
+        if(typeof cb != "undefined")
+            my.set.successCallback(cb);
+        my.call();
+        my.clear();
     };
 
     this.call = function()
     {
         my.logger.set.text("Ajax Called");
-        my.logger.add.text("File: " + this.config.rootFolder + my.get.url());
+        my.logger.add.text("File: " + my.config.rootFolder + my.get.url());
         my.logger.add.text("Div Id: " + my.get.div());
         my.logger.console();
         if(url == null || div == null || dataType == null)
@@ -240,16 +214,40 @@ function Ajax(){
         }
         var divId = my.get.div();
         var successCallback = my.get.successCallback();
-        $("#" + divId).load(this.config.rootFolder + my.get.url(), inputData, function(){
-                successCallback();
+        $("#" + divId).load(my.config.rootFolder + my.get.url(), inputData, function(res){
+                successCallback(res);
             }
         );
+
+        my.history.push({
+            url: my.get.url(),
+            div: my.get.div(),
+            inputData: my.get.inputData(),
+            successCallback: my.get.successCallback()
+        });
     };
 
-    this.changePage = function(url,div,historyUrl)
+    this.changePage = function(url,div)
     {
-        history.pushState("","",my.config.rootFolder + my.get.templateUrl() + historyUrl);
         my.callEvent(url,div);
+    };
+
+    this.back = function(){
+        var historyLength = my.history.length;
+        var backPage = my.history[historyLength-2];
+        if(typeof backPage != "undefined"){
+            my.set.inputData(backPage.inputData);
+            my.set.successCallback(function(res){
+                backPage.successCallback(res);
+            });
+            my.callEvent(backPage.url,backPage.div);
+            my.history.splice((historyLength - 2),2);
+        }
+    };
+
+    this.getHistory = function(historyIndex){
+        var historyLength = my.history.length;
+        return my.history[(historyLength - historyIndex)];
     };
 }
 

@@ -1,0 +1,78 @@
+//**Component**\\
+
+
+.div-group{
+  >*:not(:first-child):not(:last-child){
+    border-left-width:0px !important;
+    border-radius: 0px !important;
+  }
+  >*:first-child{
+    border-bottom-right-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+  >*:last-child{
+    border-left-width: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+  }
+}
+
+.input-textBox-label {
+  &:after {
+    content: " : ";
+  }
+}
+.input-textBox {
+  border: 0px;
+  height: 100%;
+  width: 100%;
+  min-width: 60px;
+}
+
+.textBox-placeholder{}
+.textBox-label {}
+.tab {}
+.tab-link {
+  cursor: pointer;
+  display: table;
+  padding: 5px;
+  float: left;
+  width:0px;
+  height:100%;
+  div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+
+.button {
+  position:relative;
+  display: table;
+  cursor: pointer;
+  > div, > span {
+    display: table-cell;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.container-menu {
+  position: relative;
+  height:100%;
+  width:100%;
+}
+.separator-line-vertical,
+.separator-line-horizontal {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  position:relative;
+  float: left;
+}
+
+.separator-line-horizontal {height: 1px !important;}
+.separator-line-vertical {width: 1px !important;}
+
+
