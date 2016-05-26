@@ -6,9 +6,9 @@ Framework_Popup.prototype = new Framework_Components();
 function Framework_Popup()
 {
     this.init = function(initializedElement){
-        $(initializedElement + " .popup-element-header").click(function(){
+        $(initializedElement + " .popup-element-click.popup-element-header").click(function(){
             var popupElementHeader = $(this);
-            var popupElementContent = popupElementHeader.closest(".popup-element-content");
+            var popupElementContent = popupElementHeader.find(".popup-element-content");
             popupElementContent.toggleClass("popup-active");
         });
     };

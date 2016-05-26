@@ -1,5 +1,15 @@
 /**
  * Created by akhnos on 6/23/15.
+ * preLoadImagesObj = new PreLoad({
+        async: false,
+        onProgressChange: function(progressRatio){},
+        onComplete:function(){},
+        images:[
+            {src: imageURL1},
+            {src: imageURL2}
+        ]
+    });
+    preLoadImagesObj.init();
  */
 
 PreLoad.prototype = new System();

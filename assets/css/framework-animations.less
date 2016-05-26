@@ -101,14 +101,19 @@
 .popup-to-right,
 .popup-to-bottom,
 .popup-to-top,
+.popup-element-click,
 .popup-element-content,
 .popup-element-header{}
 .popup-element{
-  overflow: hidden;
-  .popup-element-header {
-    .popup-element-content {opacity: 0;position: absolute}
+
+  .popup-element-header.popup-element-click{
+    .popup-element-content{opacity: 0;position: absolute;display: none}
+    .popup-element-content.popup-active{opacity: 1;display: block}
+  }
+  .popup-element-header:not(.popup-element-click) {
+    .popup-element-content {opacity: 0;position: absolute;display: none}
     &:hover{
-      .popup-element-content {opacity: 1;}
+      .popup-element-content {opacity: 1;display: block}
       .popup-to-left{left:0%;}
       .popup-to-right{right:0%}
       .popup-to-bottom{top:0%;}
@@ -142,6 +147,7 @@
   .section-to-right.section-active{right: 0%;margin-top: 0px}
 }
 
+.accordion-menu-single,
 .accordion-node-click,
 .accordion-node-hover,
 .accordion-menu-content,
@@ -153,7 +159,7 @@
     width: 100%;
     overflow: hidden;
     > .accordion-menu-header {
-      min-height: 30px;
+      min-height: 1em;
       width: 100%;
       z-index: 2;
     }

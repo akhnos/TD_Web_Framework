@@ -9,6 +9,10 @@ function Framework_Accordion()
         $(initializedElement + " .accordion-node-click .accordion-menu-header").click(function(){
             var accordionNodeHeader = $(this);
             var parentAccordionNode = accordionNodeHeader.closest(".accordion-node-click");
+            var parentAccordionMenu = parentAccordionNode.closest(".accordion-menu");
+            if(parentAccordionMenu.hasClass("accordion-menu-single")){
+                parentAccordionMenu.find(".accordion-node-click").removeClass("active");
+            }
             parentAccordionNode.toggleClass("active");
         });
     };

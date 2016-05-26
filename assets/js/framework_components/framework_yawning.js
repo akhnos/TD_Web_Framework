@@ -11,6 +11,9 @@ function Framework_Yawning()
             var widthSize = Math.round(24/nodeCount);
             var openedNodeWidthSize = 24 - (widthSize * (nodeCount - 2));
             $(this).children(".yawning-node").each(function(index){
+                $(this).removeClass (function (index, css) {
+                    return (css.match (/(^|\s)dw-\S+/g) || []).join(' ');
+                });
                 $(this).addClass("dw-" + widthSize);
                 if(index == 0)
                 {

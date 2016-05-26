@@ -1,6 +1,7 @@
 /** Defaults Start: End **/
 body {
   margin: 0;
+  position: relative;
 }
 
 *, *:before, *:after {
@@ -45,27 +46,34 @@ img, input {
 .explanation-text{display: none;}
 .explanation-popup{position:absolute;z-index: 9999;}
 
+
+.attrFilterDisplayedRow{}
+.attrFilterHiddenRow{display: none;}
+.keyboardFilterDisplayedRow{}
+.keyboardFilterHiddenRow{display: none;}
+
+
 .dropdown,
 .dropdown-trigger,
 .dropdown-menu-popup,
-.dropdown-menu-section,
 .dropdown-menu{}
 .dropdown {
-  .dropdown-menu-popup{
-    position: absolute;
-    top:100%;left:0px;
-    min-width: 150px;
-  }
+  .dropdown-menu-right{right:0px;}
+  .dropdown-menu-left{left:0px;}
   .dropdown-trigger{
     cursor: pointer;
   }
   .dropdown-menu{
+    position: absolute;
+    top:100%;
+    min-width: 150px;
     display: none;
   }
   .dropdown-active{
     display: block;
   }
 }
+
 
 /** Interface Classes: End (Using in system.js || framework.js) **/
 /** Component: Start **/
@@ -99,7 +107,7 @@ img, input {
   min-width: 60px;
 }
 
-.textbox-placeholder{}
+.textBox-placeholder{}
 .textBox-label {}
 .default-text {}
 .default-text-original {display:none;}
@@ -120,10 +128,6 @@ img, input {
 
 .button {
   position:relative;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 3px;
-  padding-top: 3px;
   display: table;
   cursor: pointer;
   > div, > span {
@@ -314,6 +318,7 @@ img, input {
   margin-left:auto;
   margin-right:auto;
   float: none;
+  display: table;
 }
 
 .window-right {
@@ -389,14 +394,6 @@ img, input {
 /** Gutter: End **/
 
 /** Shapes: Start **/
-.vertical {
-  > * {
-    margin-left: 0px;
-    margin-right: 0px;
-    width: 100%;
-  }
-}
-
 .horizontal {
   position: relative;
   display: inline-block;
@@ -412,33 +409,6 @@ img, input {
   }
 }
 
-.border-radius-right {
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  border-bottom-right-radius: 5px !important;
-  border-top-right-radius: 5px !important;
-}
-
-.border-radius-left {
-  border-bottom-left-radius: 5px !important;
-  border-top-left-radius: 5px !important;
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: 0px;
-}
-
-.border-radius-bottom {
-  border-bottom-left-radius: 5px !important;
-  border-top-left-radius: 0px;
-  border-bottom-right-radius: 5px !important;
-  border-top-right-radius: 0px;
-}
-
-.border-radius-top {
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 5px !important;
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: 5px !important;
-}
 /** Shapes: End **/
 /** Texts: Start **/
 .text-left
@@ -457,12 +427,12 @@ img, input {
 .text-bold {font-weight: bold;}
 
 
-.text-mini {font-size: 0.5em;}
-.text-small {font-size: 0.75em; }
-.text-medium {font-size: 1em;}
-.text-semiLarge {font-size: 1.25em; line-height: 1.25em;}
-.text-large {font-size: 2em; line-height: 2em;}
-.text-huge {font-size: 5em; line-height: 5em;}
+.text-mini {font-size: 0.5em;line-height: 1em;}
+.text-small {font-size: 0.75em;line-height: 1em; }
+.text-medium {font-size: 1em;line-height: 1em;}
+.text-semiLarge {font-size: 1.25em;line-height: 1.25em;}
+.text-large {font-size: 2em;line-height: 1.25em;}
+.text-huge {font-size: 5em;line-height: 1.25em;}
 
 .error-text,
 .success-text,

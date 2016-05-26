@@ -106,18 +106,26 @@
 .popup-element{
   overflow: hidden;
   .popup-element-header {
-    .popup-element-content {opacity: 0;display: none;position: absolute}
+    .popup-element-content {opacity: 0;position: absolute}
     &:hover{
-      .popup-element-content {opacity: 1;display: block;}
+      .popup-element-content {opacity: 1;}
       .popup-to-left{left:0%;}
       .popup-to-right{right:0%}
       .popup-to-bottom{top:0%;}
       .popup-to-top{bottom:0%;}
+      .popup-to-left.popup-from-center{right:100%}
+      .popup-to-right.popup-from-center{left:100%}
+      .popup-to-bottom.popup-from-center{top:100%;}
+      .popup-to-top.popup-from-center{bottom:100%;}
     }
     .popup-to-left{left:105%}
     .popup-to-right{right:105%}
     .popup-to-bottom{top:105%;}
     .popup-to-top{bottom:105%;}
+    .popup-to-left.popup-from-center{right:0%}
+    .popup-to-right.popup-from-center{left:0%}
+    .popup-to-bottom.popup-from-center{top:0%;}
+    .popup-to-top.popup-from-center{bottom:0%;}
   }
 }
 
@@ -159,6 +167,7 @@
       overflow: hidden;
       opacity: 0;
       z-index: 1;
+
     }
   }
   .accordion-node-hover{
@@ -181,11 +190,12 @@
 
 .overlay-menu-header,
 .overlay-menu {
-  .overflow-hidden;
+  
   .overlay-menu-header {
     .animated-fast;
     width: 100%;
     height: 100%;
+
   }
 
   .overlay-menu-fade{
@@ -253,6 +263,7 @@
     float: left;
     z-index:5;
     width: 100%;
+    min-height: 100px;
     li{
       position: relative;
       display: inline-block;

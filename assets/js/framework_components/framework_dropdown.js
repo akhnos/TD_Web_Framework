@@ -17,9 +17,13 @@ function Framework_Dropdown()
                     dropdownMenu.removeClass("dropdown-active");
                 }
             });
-            dropDown.mouseleave(function(){
-                dropdownMenu.removeClass("dropdown-active");
-            });
+        });
+        $( window ).click(function(e){
+            var target = $(e.target);
+            if(!target.closest('.dropdown').length)
+            {
+                $('.dropdown-menu').removeClass("dropdown-active");
+            }
         });
     };
     var my = this;
