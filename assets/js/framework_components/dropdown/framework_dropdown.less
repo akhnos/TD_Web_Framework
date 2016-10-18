@@ -1,0 +1,51 @@
+.dropdown,
+.dropdown-hover,
+.dropdown-menu,
+.dropdown-menu-item,
+.dropdown-trigger,
+.dropdown-menu-left,
+.dropdown-menu-right,
+.dropdown-animation-from-top,
+.dropdown-animation-fade-in
+
+.dropdown {
+  .dropdown-menu-right{right:0px;}
+  .dropdown-menu-left{left:0px;}
+  .dropdown-non-visible{display: hidden;}
+  .dropdown-trigger{cursor: pointer;}
+  .dropdown-active{display: block;}
+  .dropdown-menu{}
+}
+/** DROP DOWN ANIMATION FROM TOP **/
+.dropdown.dropdown-animation-from-top{
+  .dropdown-trigger{}
+  .dropdown-menu-container{
+    overflow: hidden;
+    position: absolute;
+    max-height: 400px;
+    top:100%;
+    .dropdown-menu{
+      margin-top:-1000px;
+      float: none;
+      display: inline-block;
+    }
+  }
+}
+.dropdown.dropdown-animation-from-top.dropdown-active{}
+/** DROP DOWN ANIMATION FROM TOP **/
+/** DROP DOWN ANIMATION FADE IN**/
+.dropdown.dropdown-animation-fade-in{
+  .dropdown-menu-container{
+    position: absolute;
+    top:100%;
+    .dropdown-menu{
+      opacity: 0;
+    }
+  }
+}
+.dropdown.dropdown-animation-fade-in.dropdown-active{
+  .dropdown-menu{
+    opacity: 1;
+  }
+}
+/** DROP DOWN ANIMATION FADE IN**/

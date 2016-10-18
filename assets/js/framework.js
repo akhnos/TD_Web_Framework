@@ -3,14 +3,12 @@ function ComponentBuilder()
 {
     /* Configurations */
     this.defaults = {
-        rootFolder: "http://localhost/TDWebFramework/tdem/",
         assetFolder: "",
         imageFolder: "images/",
         currentPage: "",
         imageRepeat: "repeat"
     };
-    if(window.location.toString().indexOf("http://www") == 0)
-        this.defaults.rootFolder = "http://localhost/TDWebFramework/tdem";
+
     /* Configurations */
     var my = this;
     var defaults = my.defaults;
@@ -56,87 +54,13 @@ function ComponentBuilder()
         }
     };
 
-    this.getElByClass = function(className)
-    {
-        return my.defaults.currentPage.getElementsByClassName(className);
-    };
-
-    this.getPlaceHolders = function()
-    {
-        var placeholders = my.getElByClass("textbox-placeholder");
-        for(var x = 0; x < placeholders.length; x++)
-        {
-            placeholder = $(placeholders[x]);
-            placeholder.siblings("input").attr("placeholder",placeholder.html());
-            placeholder.hide();
-        }
-    };
-
-    this.getOriginalText = function()
-    {
-        var originalTexts = my.getElByClass("default-text-original");
-        my.components["tmpTexts"] = {};
-        for(var x = 0; x < originalTexts.length; x++)
-        {
-            originalText = $(originalTexts[x]);
-            if(my.components["tmpTexts"][originalText.attr("id")])
-                my.helper.debugWarnings("Duplicated original text id \n"
-                    + "Text Id:" + originalText.attr("id"));
-            my.components["tmpTexts"][originalText.attr("id")] = originalText.html();
-        }
-    };
-
-    this.getTexts = function()
-    {
-        var texts = my.getElByClass("default-text");
-        $(texts).each(function(i){
-            var textNode = $(this);
-            var dataVars = textNode.attr("data-vars");
-            var innerText = textNode.html();
-            if($("#" + innerText).length > 0)
-            {
-                var originalText = $("#" + innerText);
-                var innerHtml = originalText.html();
-                if(typeof dataVars != "undefined")
-                {
-                    dataVars = JSON.parse(dataVars);
-                    for(var y in dataVars)
-                    {
-                        innerHtml = innerHtml.replace("%s", dataVars[y]);
-                    }
-                }
-                textNode.html(innerHtml);
-                textNode.removeClass("default-text");
-                delete(my.components["tmpTexts"][innerText]);
-            }else{
-                my.helper.debugWarnings("Missing default-text-original classname  \n"
-                    + "Warning On: default-text \n"
-                    + "Selector Id: " + textNode.attr("id") + "\n"
-                    + "Closest Id: " + textNode.closest('[id]').attr("id") + "\n"
-                    + "Inner Text: " + innerText);
-            }
-        });
-
-        if(Object.keys(my.components["tmpTexts"]).length > 0)
-            my.helper.debugWarnings("Not used texts", my.components["tmpTexts"]);
-    };
-
-    this.collector = function()
-    {
-
-        my.getOriginalText();
-        my.getTexts();
-        my.getPlaceHolders();
-    };
-
     this.init = function(initializedElement)
     {
         var ajax = new Ajax();
         my.defaults.currentPage = document.getElementById(initializedElement);
-        my.collector();
         $("#" + initializedElement + " a").each(function(){
             if($(this).attr("href").indexOf("http://") < 0)
-                this.href = my.defaults.rootFolder + $(this).attr("href");
+                this.href = my.config.rootFolder + $(this).attr("href");
         });
         $( "a" ).click(function( event ) {
             if(!event.ctrlKey)

@@ -1,0 +1,39 @@
+
+.overlay-menu-header,
+.overlay-menu {
+  .overflow-hidden;
+  .overlay-menu-header {
+    .animated-fast;
+    width: 100%;
+    height: 100%;
+  }
+
+  .overlay-menu-fade{
+    .animated-fast;
+    position: absolute;
+    left:0px;top:0px;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    background-color: rgba(0,0,0,0.9);
+    opacity: 0;
+    color: #ffffff;
+  }
+  &:hover {
+    .overlay-menu-header { opacity: 0.6; }
+    .overlay-menu-fade { opacity: 1; }
+  }
+
+  .overlay-menu-xy,
+  .overlay-menu-y,
+  .overlay-menu-x
+  {
+    position: absolute;
+    width: 100%;height: 100%;
+    opacity: 0;
+    background: #000000;
+    background-color: rgba(0,0,0,0.9);
+    color: #ffffff;
+  }
+  .overlay-active{opacity: 1;}
+}

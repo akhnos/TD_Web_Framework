@@ -1,0 +1,43 @@
+.accordion-menu-single,
+.accordion-node-click,
+.accordion-node-hover,
+.accordion-menu-content,
+.accordion-menu-header {}
+.accordion-menu
+{
+  .accordion-node-click,
+  .accordion-node-hover{
+    width: 100%;
+    overflow: hidden;
+    > .accordion-menu-header {
+      min-height: 1em;
+      width: 100%;
+    }
+    > .accordion-menu-content{
+      .animated-normal;
+      height: auto;
+      max-height: 0px;
+      position: relative;
+      left: 0%;
+      width: 100%;
+      overflow: hidden;
+      opacity: 0;
+    }
+  }
+  .accordion-node-hover{
+    &:hover{
+      max-height: 5600px;
+      > .accordion-menu-content {
+        max-height: 5650px;
+        opacity: 1;
+      }
+    }
+  }
+  .accordion-node-click.active{
+    max-height: 5600px;
+    > .accordion-menu-content {
+      max-height: 5650px;
+      opacity: 1;
+    }
+  }
+}

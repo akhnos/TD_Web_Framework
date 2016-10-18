@@ -13,6 +13,7 @@
   height:0px;
 }
 
+
 .dynamic (@level,@suffix){
   @suf: ~"@{suffix}";
   .dw-@{level}@{suf} { width: percentage(@level / 24);}
@@ -23,7 +24,7 @@
   .dt-@{level}@{suf} { top: percentage(@level / 24);}
 }
 
-.loop(@counter) when (@counter < 25) {
+.basicLoop(@counter) when (@counter < 25) {
   .dw-@{counter},
   .dh-@{counter},
   .row-@{counter} {
@@ -32,6 +33,13 @@
     height: 100%;
     width: 100%;
   }
+  .dynamic(@counter,"");
+  .basicLoop((@counter + 1));
+}
+
+.basicLoop(0);
+
+.loop(@counter) when (@counter < 25) {
   .dynamic(@counter,"");
   .loop((@counter + 1));
 }
@@ -47,14 +55,11 @@
     }
 
     .loop(0);
+
     .dh-0@{suf} { height: auto; }
     .dw-0@{suf} { width: auto; }
-    .hidden@{suf}{
-      display: none !important;
-    }
-    .show@{suf}{
-      display: block !important;
-    }
+    .hidden@{suf}{display: none !important;}
+    .show@{suf}{display: block !important;}
   }
 }
 .dh-0{ height: auto; }
@@ -128,5 +133,18 @@
     display: table-cell;
     vertical-align: middle;
     float: none;
+  }
+}
+
+.window-child-vertical-center {
+  white-space: nowrap;
+  &:before{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    content: "";
+  }
+  >* {
+    vertical-align: middle;
   }
 }
